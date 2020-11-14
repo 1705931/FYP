@@ -1,0 +1,3 @@
+[submodule "VulinOSS"]
+	path = VulinOSS
+	url = https://github.com/1705931/VulinOSS.git
