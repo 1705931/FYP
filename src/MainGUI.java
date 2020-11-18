@@ -32,6 +32,9 @@ public class MainGUI extends JFrame{
                     if (languageSelector.getSelectedItem().equals("Python")){
                         Runtime.getRuntime().exec("cmd /c start cmd.exe /K \"cd ..\\VulinOSS\\vulinoss && pylint " + repoSelector.getSelectedItem());
                     }
+                    else if (languageSelector.getSelectedItem().equals("C")){
+                        Runtime.getRuntime().exec("cmd /c start cmd.exe /K \"cd ..\\VulinOSS\\vulinoss && cpplint --recursive " + repoSelector.getSelectedItem());
+                    }
                 } catch (Exception ex)
                 {
                     System.out.println(ex);

@@ -40,7 +40,7 @@
         <properties>
           <model>
             <item value="Python"/>
-            <item value="Java"/>
+            <item value="C"/>
           </model>
         </properties>
       </component>
