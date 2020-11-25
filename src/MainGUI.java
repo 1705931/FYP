@@ -30,10 +30,14 @@ public class MainGUI extends JFrame{
             {
                 try{
                     if (languageSelector.getSelectedItem().equals("Python")){
-                        Runtime.getRuntime().exec("cmd /c start cmd.exe /K \"cd ..\\VulinOSS\\vulinoss && pylint " + repoSelector.getSelectedItem());
+                        Runtime.getRuntime().exec("cmd /c start cmd.exe /K \"cd ..\\VulinOSS\\vulinoss && pylint " + repoSelector.getSelectedItem() + " -f text >> ..\\data\\python_output\\" + repoSelector.getSelectedItem() + "_report.txt");
+                        Runtime.getRuntime().exec("cmd /c start cmd.exe /K \"cd ..\\VulinOSS\\vulinoss && bandit -r " + repoSelector.getSelectedItem() + " -o ..\\data\\python_output\\" + repoSelector.getSelectedItem() + "_vuln.txt -f txt");
                     }
                     else if (languageSelector.getSelectedItem().equals("C")){
                         Runtime.getRuntime().exec("cmd /c start cmd.exe /K \"cd ..\\VulinOSS\\vulinoss && cpplint --recursive " + repoSelector.getSelectedItem());
+                    }
+                    else if (languageSelector.getSelectedItem().equals("JavaScript")){
+                        Runtime.getRuntime().exec("cmd /c start cmd.exe /K \"cd ..\\VulinOSS\\vulinoss && retire --path " + repoSelector.getSelectedItem() + " --outputformat json --outputpath ..\\data\\js_output\\" + repoSelector.getSelectedItem() + ".json");
                     }
                 } catch (Exception ex)
                 {

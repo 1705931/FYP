@@ -41,6 +41,7 @@
           <model>
             <item value="Python"/>
             <item value="C"/>
+            <item value="JavaScript"/>
           </model>
         </properties>
       </component>
