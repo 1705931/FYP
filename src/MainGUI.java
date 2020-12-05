@@ -32,7 +32,7 @@ public class MainGUI extends JFrame{
                 try{
                     if (languageSelector.getSelectedItem().equals("Python")){
 //                        Runtime.getRuntime().exec("cmd /c start cmd.exe /K \"cd ..\\VulinOSS\\vulinoss && pylint " + repoSelector.getSelectedItem() + " -f json >> ..\\data\\python_output\\" + repoSelector.getSelectedItem() + "_report.json");
-                        Runtime.getRuntime().exec("cmd /c start cmd.exe /K \"cd ..\\VulinOSS\\vulinoss && pylint " + repoSelector.getSelectedItem() + " -f colorized");
+//                        Runtime.getRuntime().exec("cmd /c start cmd.exe /K \"cd ..\\VulinOSS\\vulinoss && bandit -r -ll -ii " + repoSelector.getSelectedItem() + " -f json -o ..\\data\\python_output\\" + repoSelector.getSelectedItem() + "_vuln.json");
                         Runtime.getRuntime().exec("cmd /c start cmd.exe /K \"cd ..\\VulinOSS\\vulinoss && bandit -r " + repoSelector.getSelectedItem() + " -f json -o ..\\data\\python_output\\" + repoSelector.getSelectedItem() + "_vuln.json");
                     }
                     else if (languageSelector.getSelectedItem().equals("C")){
@@ -55,7 +55,7 @@ public class MainGUI extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 JSONRead json = new JSONRead();
                 try {
-                    json.readFile();
+                    json.readFile(repoSelector);
                 } catch (Exception exception) {
                     exception.printStackTrace();
                 }
