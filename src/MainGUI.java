@@ -8,6 +8,7 @@ public class MainGUI extends JFrame{
     private JPanel rootPanel;
     private JComboBox languageSelector;
     private JComboBox repoSelector;
+    private JButton analyseResultButton;
     String[] dirnames; //this array stores the names of directories
     File f = new File("D:\\IntelliJ Projects\\VulinOSS\\vulinoss"); //path of where the directories
 
@@ -30,8 +31,9 @@ public class MainGUI extends JFrame{
             {
                 try{
                     if (languageSelector.getSelectedItem().equals("Python")){
-                        Runtime.getRuntime().exec("cmd /c start cmd.exe /K \"cd ..\\VulinOSS\\vulinoss && pylint " + repoSelector.getSelectedItem() + " -f text >> ..\\data\\python_output\\" + repoSelector.getSelectedItem() + "_report.txt");
-                        Runtime.getRuntime().exec("cmd /c start cmd.exe /K \"cd ..\\VulinOSS\\vulinoss && bandit -r " + repoSelector.getSelectedItem() + " -o ..\\data\\python_output\\" + repoSelector.getSelectedItem() + "_vuln.txt -f txt");
+//                        Runtime.getRuntime().exec("cmd /c start cmd.exe /K \"cd ..\\VulinOSS\\vulinoss && pylint " + repoSelector.getSelectedItem() + " -f json >> ..\\data\\python_output\\" + repoSelector.getSelectedItem() + "_report.json");
+                        Runtime.getRuntime().exec("cmd /c start cmd.exe /K \"cd ..\\VulinOSS\\vulinoss && pylint " + repoSelector.getSelectedItem() + " -f colorized");
+                        Runtime.getRuntime().exec("cmd /c start cmd.exe /K \"cd ..\\VulinOSS\\vulinoss && bandit -r " + repoSelector.getSelectedItem() + " -f json -o ..\\data\\python_output\\" + repoSelector.getSelectedItem() + "_vuln.json");
                     }
                     else if (languageSelector.getSelectedItem().equals("C")){
                         Runtime.getRuntime().exec("cmd /c start cmd.exe /K \"cd ..\\VulinOSS\\vulinoss && cpplint --recursive " + repoSelector.getSelectedItem());
@@ -45,6 +47,18 @@ public class MainGUI extends JFrame{
                     ex.printStackTrace();
                 }
 
+            }
+        });
+
+        analyseResultButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JSONRead json = new JSONRead();
+                try {
+                    json.readFile();
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                }
             }
         });
     }
