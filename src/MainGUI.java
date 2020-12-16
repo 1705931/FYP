@@ -53,10 +53,11 @@ public class MainGUI extends JFrame{
         analyseResultButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JSONRead json = new JSONRead();
+                JSON json = new JSON();
                 try {
                     json.readFile(repoSelector);
                 } catch (Exception exception) {
+                    //Print the stack trace if the file doesn't exist
                     exception.printStackTrace();
                 }
             }
