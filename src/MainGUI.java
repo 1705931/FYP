@@ -2,6 +2,10 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
+
+import org.rosuda.JRI.Rengine;
+import org.rosuda.JRI.REXP;
 
 public class MainGUI extends JFrame{
     private JButton analyseRepoButton;
@@ -22,7 +26,7 @@ public class MainGUI extends JFrame{
             repoSelector.addItem(s);
         }
 
-        setTitle("Repo Analyser");
+        setTitle("Python Repo Analyser");
         setSize(400, 500);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         analyseRepoButton.addActionListener(new ActionListener() {
@@ -53,13 +57,31 @@ public class MainGUI extends JFrame{
         analyseResultButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JSON json = new JSON();
+                //No longer needed code - can be explained in the report
+//                JSON json = new JSON();
+//                try {
+//                    json.readFile(repoSelector);
+//                } catch (Exception exception) {
+//                    //Print the stack trace if the file doesn't exist
+//                    exception.printStackTrace();
+//                }
+//
+                // when the library was found in one of the locations
+                // this call should not throw an exception
+                System.loadLibrary("jri");
+
+                //System.out.println("java library path: "+System.getProperty("java.library.path"));
+                Rengine re = new Rengine(new String[] { "-no-save" }, false, null);
+                re.eval(String.format("g <- '%s'", "Hello R..."));
+                REXP result = re.eval("g");
+                System.out.println("Greeting R test...: "+result);
+
                 try {
-                    json.readFile(repoSelector);
-                } catch (Exception exception) {
-                    //Print the stack trace if the file doesn't exist
-                    exception.printStackTrace();
+                    Runtime.getRuntime().exec("");
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
                 }
+
             }
         });
     }
